@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "820537993722",
+    "project_id": "clonezap-f9e9c",
+    "storage_bucket": "clonezap-f9e9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820537993722:android:543ec57b57743ca601dc43",
+        "android_client_info": {
+          "package_name": "com.devventure.clonezap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "820537993722-a7j2jg4hv5up1d9qakba2nl7stfgufum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devventure.clonezap",
+            "certificate_hash": "6ce1238c5bcb8f8ea121f5319e1513701cdb91ac"
+          }
+        },
+        {
+          "client_id": "820537993722-dfkbg4aqroajso065t2l2bsfrgpgt5bs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI9BJNmYpPcYV5zatvUxNN0GMFFC60b98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "820537993722-dfkbg4aqroajso065t2l2bsfrgpgt5bs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
