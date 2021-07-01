@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Clonezap</string>
+    <string name="text_app_name">Clonezap</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="login">Login</string>
+    <string name="text_login">Login</string>
+    <string name="text_welcome_to_clonezap">Welcome to Clonezap</string>
+    <string name="text_privacy_policy">Read and agree with our privacy policy. Just login to agree with our terms.</string>
+    <string name="text_from">from</string>
+    <string name="text_dev_venture">DEVVENTURE</string>
+    <string name="text_logout">Logout</string>
 </resources>
