@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.databinding.FragmentMainBinding
@@ -14,9 +12,9 @@ import com.devventure.clonezap.databinding.FragmentMainBinding
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : Fragment() {
+class ContactsFragment : Fragment() {
 
-    private lateinit var pageViewModel: PageViewModel
+    private lateinit var contactsViewModel: ContactsViewModel
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and
@@ -25,9 +23,9 @@ class PlaceholderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
+//        contactsViewModel = ViewModelProvider(this).get(ContactsViewModel::class.java).apply {
+//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+//        }
     }
 
     override fun onCreateView(
@@ -35,22 +33,23 @@ class PlaceholderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        contactsViewModel = ViewModelProvider(this).get(ContactsViewModel::class.java)
+
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root = binding.root
 
-        val textView: TextView = binding.sectionLabel
-        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        val contactsList: RecyclerView = binding.contactsList
+        val adapter: ContactsAdapter = ContactsAdapter()
+        contactsViewModel.contactsList.observe(viewLifecycleOwner, {
+            adapter.setContactsList(it)
         })
 
-//        val contactsList: RecyclerView = binding.contactsList
-//        val adapter: ContactsAdapter = ContactsAdapter()
-//        pageViewModel.contactsList.observe(viewLifecycleOwner, {
-//            adapter.setContactsList(it)
+        contactsList.adapter = adapter
+
+//        val textView: TextView = binding.sectionLabel
+//        pageViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
 //        })
-
-//        contactsList.adapter = adapter
-
         return root
     }
 
@@ -66,8 +65,8 @@ class PlaceholderFragment : Fragment() {
          * number.
          */
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): ContactsFragment {
+            return ContactsFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }
