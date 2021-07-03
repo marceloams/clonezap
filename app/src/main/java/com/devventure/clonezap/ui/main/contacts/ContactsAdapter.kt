@@ -1,4 +1,4 @@
-package com.devventure.clonezap.ui.main
+package com.devventure.clonezap.ui.main.contacts
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.R
 import com.devventure.clonezap.model.Contact
-import org.w3c.dom.Text
 
 class ContactsAdapter(val onContactSelected: (contact: Contact) -> Unit) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 

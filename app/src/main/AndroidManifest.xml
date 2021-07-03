@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Clonezap">
-        <activity android:name=".ui.main.ChatActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">

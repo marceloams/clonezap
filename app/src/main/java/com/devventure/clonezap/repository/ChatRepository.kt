@@ -12,8 +12,64 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object ChatRepository {
-    const val TAG: String = "ChatRepository"
-    val db by lazy { Firebase.firestore}
+    private const val TAG: String = "ChatRepository"
+    private val db by lazy { Firebase.firestore}
+    private val currentUserEmail by lazy { UserRepository.myEmail() }
+
+    fun getMessages(chatId: String, onComplete: (ArrayList<Message>) -> Unit){
+        val docRef = db.collection("chats")
+            .document(chatId)
+            .collection("messages").addSnapshotListener{ snapshot, e ->
+                if(e != null){
+                    onComplete(ArrayList<Message>())
+                    Log.d(TAG, e.localizedMessage)
+                    return@addSnapshotListener
+                }
+
+                val messages = ArrayList<Message>()
+                if (snapshot != null) {
+                    for(msg in snapshot){
+                        val m = msg.toObject<Message>()
+                        messages.add(m)
+                    }
+                    messages.sortBy { it.time }
+                    onComplete(messages)
+                } else {
+                    Log.d(TAG, "snapshot is null")
+                }
+            }
+    }
+
+    fun createChatId(email1: String, email2: String): String {
+        return if(email1.compareTo(email2) > 0) "$email1-${email2}" else "${email2}-$email1"
+    }
+
+    fun getChatWith(contactEmail: String, onComplete: (chatId: String, e: String?) -> Unit) {
+        val chat = createChatId(currentUserEmail!!, contactEmail)
+        db.collection("chats")
+            .document(chat)
+            .get()
+            .addOnSuccessListener {
+                onComplete(it.id, null)
+            }
+            .addOnFailureListener {
+                onComplete("", it.localizedMessage)
+            }
+    }
+
+    fun addMessageToChat(chatId: String, from: String, message: String){
+        val data = hashMapOf(
+            "from" to from,
+            "message" to message,
+            "time" to Date().time
+        )
+
+        db.collection("chats")
+            .document(chatId)
+            .collection("messages")
+            .document()
+            .set(data)
+    }
 
 //    fun getMessages(myEmail: String, contactEmail: String, onComplete: (ArrayList<String>) -> Unit){
 //        val docRef = ChatRepository.db.collection("chats")
@@ -44,51 +100,4 @@ object ChatRepository {
 //            }
 //
 //    }
-
-    fun getMessages(chatId: String, onComplete: (ArrayList<Message>) -> Unit){
-        val docRef = db.collection("chats")
-            .document(chatId)
-            .collection("messages").addSnapshotListener{ snapshot, e ->
-                Log.d(TAG, "encontrei")
-                if(e != null){
-                    onComplete(ArrayList<Message>())
-//                    Log.d(TAG, e.localizedMessage)
-                    Log.d(TAG, "deu ruim")
-                    return@addSnapshotListener
-                }
-
-                val messages = ArrayList<Message>()
-                if (snapshot != null) {
-                    Log.d(TAG, "size: ${snapshot.size()}")
-                    for(msg in snapshot){
-                        val m = msg.toObject<Message>()
-                        messages.add(m)
-                    }
-                    messages.sortBy { it.time }
-                    onComplete(messages)
-                } else {
-                    Log.d(TAG, "snapshot is null")
-                }
-                //return@addSnapshotListener
-            }
-    }
-
-    fun createChatId(email: String, email2: String): String {
-        val id = if(email.compareTo(email2) > 0) "$email-${email2}" else "${email2}-$email"
-        return id
-    }
-
-    fun addMessageToChat(chatId: String, from: String, message: String){
-        val data = hashMapOf(
-            "from" to from,
-            "message" to message,
-            "time" to Date().time
-        )
-
-        db.collection("chats")
-            .document(chatId)
-            .collection("messages")
-            .document()
-            .set(data)
-    }
 }

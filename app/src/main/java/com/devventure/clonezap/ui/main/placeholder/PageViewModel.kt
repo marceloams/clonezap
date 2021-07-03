@@ -1,4 +1,4 @@
-package com.devventure.clonezap.ui.main
+package com.devventure.clonezap.ui.main.placeholder
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

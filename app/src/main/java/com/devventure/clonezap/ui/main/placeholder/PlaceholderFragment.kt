@@ -1,4 +1,4 @@
-package com.devventure.clonezap.ui.main
+package com.devventure.clonezap.ui.main.placeholder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.databinding.FragmentMainBinding
 
 /**

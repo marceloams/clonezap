@@ -5,15 +5,15 @@ import com.devventure.clonezap.model.Contact
 import com.devventure.clonezap.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 object UserRepository {
-
-    const val TAG: String = "UserRepository"
-    val db by lazy {Firebase.firestore}
+    private const val TAG: String = "UserRepository"
+    private val db by lazy {Firebase.firestore}
 
     fun myEmail(): String? {
-        return  FirebaseAuth.getInstance().currentUser?.email
+        return  FirebaseAuth.getInstance().currentUser?.email ?: ""
     }
 
     fun addUser(user: User, onSuccess: () -> Unit, onFail: (error: String) -> Unit){
@@ -21,12 +21,26 @@ object UserRepository {
         db.collection("users")
             .document(user.email)
             .set(user)
-            .addOnSuccessListener { documentReference ->
+            .addOnSuccessListener {
                 onSuccess()
             }
             .addOnFailureListener { e ->
                 onFail(e.localizedMessage)
             }
+    }
+
+    fun getUserByEmail(email: String, onComplete: (user: User, e: String?) -> Unit){
+        db.collection("users")
+            .document(email)
+            .get().addOnSuccessListener{
+                Log.d(TAG, "User found? ${it.exists()}")
+            }.addOnFailureListener{
+                onComplete(User(), it.localizedMessage)
+            }
+    }
+
+    fun addUserToMyContacts(user: User){
+
     }
 
     fun getMyContacts(onComplete: (ArrayList<Contact>) -> Unit){
@@ -40,7 +54,7 @@ object UserRepository {
                         if (documents != null) {
                             val contacts = ArrayList<Contact>()
                             for (document in documents) {
-//                                contacts.add(document.toObject(Contact::class.java))
+//                                contacts.add(document.toObject<Contact>())
                                 contacts.add(Contact(
                                     name = document.data.getValue("name") as String,
                                     email = document.data.getValue("email") as String,

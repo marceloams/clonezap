@@ -1,4 +1,4 @@
-package com.devventure.clonezap.ui.main
+package com.devventure.clonezap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,8 +18,12 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val chatId = intent.getStringExtra("chatId")
-        val contactEmail = intent.getStringExtra("contactEmail")
-        if(chatId == null || contactEmail == null){
+//        val contactEmail = intent.getStringExtra("contactEmail")
+//        if(chatId == null || contactEmail == null){
+//            finish()
+//            return
+//        }
+        if(chatId == null) {
             finish()
             return
         }

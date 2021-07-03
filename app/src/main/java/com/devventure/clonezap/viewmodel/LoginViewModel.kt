@@ -21,18 +21,15 @@ class LoginViewModel (val context: Context) {
             val currentUser = FirebaseAuth.getInstance().currentUser?.apply {
                 val user: User = User(
                     name = this.displayName?:"NO NAME",
-                    email = this.email ?: "NO EMAIL",
-                    id = this.uid
+                    email = this.email ?: "NO EMAIL"
+//                    id = this.uid
                 )
-
                 UserRepository.addUser(user, {
                     navigateToMain()
                 }, {
                     failToLogin(it)
                 })
             }
-
-
         } else {
             failToLogin((response?.error?.message))
         }

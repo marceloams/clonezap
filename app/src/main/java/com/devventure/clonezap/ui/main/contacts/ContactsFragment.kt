@@ -1,17 +1,18 @@
-package com.devventure.clonezap.ui.main
+package com.devventure.clonezap.ui.main.contacts
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.databinding.FragmentMainBinding
 import com.devventure.clonezap.model.Contact
 import com.devventure.clonezap.repository.ChatRepository
-import com.devventure.clonezap.repository.UserRepository
+import com.devventure.clonezap.ChatActivity
 
 /**
  * A placeholder fragment containing a simple view.
@@ -25,17 +26,10 @@ class ContactsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        contactsViewModel = ViewModelProvider(this).get(ContactsViewModel::class.java).apply {
-//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-//        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         contactsViewModel = ViewModelProvider(this).get(ContactsViewModel::class.java)
 
@@ -43,9 +37,9 @@ class ContactsFragment : Fragment() {
         val root = binding.root
 
         val contactsList: RecyclerView = binding.contactsList
-        val adapter: ContactsAdapter = ContactsAdapter({ contact ->
-            onContactsSelected(contact)
-        })
+        val adapter: ContactsAdapter = ContactsAdapter{ contact ->
+            onContactSelected(contact)
+        }
         contactsViewModel.contactsList.observe(viewLifecycleOwner, {
             adapter.setContactsList(it)
         })
@@ -55,37 +49,35 @@ class ContactsFragment : Fragment() {
         return root
     }
 
-    private fun onContactsSelected(contact: Contact){
-        val intent: Intent = Intent(context, ChatActivity::class.java)
-
-        val email = UserRepository.myEmail()
-        val chatId = ChatRepository.createChatId(email!!, contact.email)
-
-        intent.putExtra("chatId", chatId)
-        intent.putExtra("contactEmail", contact.email)
-        startActivity(intent)
-    }
-
-    companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private const val ARG_SECTION_NUMBER = "section_number"
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        @JvmStatic
-        fun newInstance(sectionNumber: Int): ContactsFragment {
-            return ContactsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_SECTION_NUMBER, sectionNumber)
-                }
+    private fun onContactSelected(contact: Contact) {
+        ChatRepository.getChatWith(contact.email) { chatId, e ->
+            if (e != null) {
+                Toast.makeText(context, e, Toast.LENGTH_LONG).show()
+            } else {
+                goToChat(chatId)
             }
         }
     }
+
+    private fun goToChat(chatId: String) {
+        val intent: Intent = Intent(context, ChatActivity::class.java)
+        intent.putExtra(
+            "chatId",
+            chatId
+        )
+        startActivity(intent)
+    }
+
+//    private fun onContactsSelected(contact: Contact){
+//        val intent: Intent = Intent(context, ChatActivity::class.java)
+//
+//        val email = UserRepository.myEmail()
+//        val chatId = ChatRepository.createChatId(email!!, contact.email)
+//
+//        intent.putExtra("chatId", chatId)
+//        intent.putExtra("contactEmail", contact.email)
+//        startActivity(intent)
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
