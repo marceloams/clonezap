@@ -11,15 +11,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ChatAdapter: RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class ChatAdapter(val userEmail: String): RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     var messages: ArrayList<Message> = ArrayList<Message>()
-
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val messageText: TextView = view.findViewById(R.id.text_chat_friend)
         private val messageTime: TextView = view.findViewById(R.id.text_hour_friend)
+
         private val locale = Locale("pt", "BR")
+
         fun setMessage(message: Message){
             messageText.text = message.message
             messageTime.text = SimpleDateFormat("HH:mm", locale).format(message.time)
@@ -31,10 +32,18 @@ class ChatAdapter: RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.chat_item, parent, false)
+    override fun getItemViewType(position: Int): Int {
+        return if(messages[position].from == userEmail) 1 else 0
+    }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = if(viewType == 1) {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.chat_item_right, parent, false)
+        } else {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.chat_item_left, parent, false)
+        }
         return ViewHolder(view)
     }
 

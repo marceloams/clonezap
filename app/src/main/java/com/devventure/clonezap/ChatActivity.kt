@@ -39,7 +39,7 @@ class ChatActivity : AppCompatActivity() {
 //        val messages = binding.txtMessages
 
         val messagesList: RecyclerView = binding.messagesList
-        val adapter: ChatAdapter = ChatAdapter()
+        val adapter: ChatAdapter = ChatAdapter(me!!)
 
         ChatRepository.getMessages(chatId){
             adapter.setMessagesList(it)

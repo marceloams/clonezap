@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:listitem="@layout/chat_item" />
+        tools:listitem="@layout/chat_item_left" />
 
     <EditText
         android:id="@+id/txtSendMessage"
