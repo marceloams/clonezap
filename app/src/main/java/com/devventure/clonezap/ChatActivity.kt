@@ -2,6 +2,7 @@ package com.devventure.clonezap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.R
@@ -19,6 +20,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatViewModel: ChatViewModel
     lateinit var binding: ActivityChatBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
@@ -30,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
         binding.toolbar.title = contactName
 
         val chatId = intent.getStringExtra("chatId")
-        if(chatId == null) {
+        if (chatId == null) {
             finish()
             return
         }
@@ -41,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
         val messagesList: RecyclerView = binding.messagesList
         val adapter: ChatAdapter = ChatAdapter(me!!)
 
-        ChatRepository.getMessages(chatId){
+        ChatRepository.getMessages(chatId) {
             adapter.setMessagesList(it)
         }
 
@@ -51,12 +53,13 @@ class ChatActivity : AppCompatActivity() {
 
         messagesList.adapter = adapter
 
-        binding.btnSend.setOnClickListener{
+        binding.btnSend.setOnClickListener {
             val msg = binding.txtSendMessage.text.toString()
-            if(msg != null){
+            if (msg != null) {
                 ChatRepository.addMessageToChat(chatId, me!!, msg)
                 binding.txtSendMessage.text.clear()
             }
         }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 }
