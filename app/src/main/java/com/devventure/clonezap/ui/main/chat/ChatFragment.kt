@@ -12,7 +12,7 @@
 //import com.devventure.clonezap.databinding.FragmentMainBinding
 //import com.devventure.clonezap.model.Contact
 //import com.devventure.clonezap.repository.ChatRepository
-//import com.devventure.clonezap.ChatActivity
+//import com.devventure.clonezap.ui.main.chat.ChatActivity
 //import com.devventure.clonezap.databinding.ActivityChatBinding
 //import com.devventure.clonezap.databinding.FragmentChatBinding
 //import com.devventure.clonezap.ui.main.chat.ChatAdapter

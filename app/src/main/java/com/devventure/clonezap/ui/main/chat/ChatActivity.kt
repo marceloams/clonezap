@@ -1,4 +1,4 @@
-package com.devventure.clonezap
+package com.devventure.clonezap.ui.main.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -58,6 +58,7 @@ class ChatActivity : AppCompatActivity() {
             if (msg != null) {
                 ChatRepository.addMessageToChat(chatId, me!!, msg)
                 binding.txtSendMessage.text.clear()
+                messagesList.smoothScrollToPosition(adapter.itemCount)
             }
         }
         binding.toolbar.setNavigationOnClickListener { finish() }

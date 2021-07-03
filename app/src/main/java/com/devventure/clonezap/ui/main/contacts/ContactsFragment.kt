@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.databinding.FragmentMainBinding
 import com.devventure.clonezap.model.Contact
 import com.devventure.clonezap.repository.ChatRepository
-import com.devventure.clonezap.ChatActivity
+import com.devventure.clonezap.ui.main.chat.ChatActivity
 
 /**
  * A placeholder fragment containing a simple view.

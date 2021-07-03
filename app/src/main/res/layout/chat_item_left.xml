@@ -25,21 +25,20 @@
         android:id="@+id/text_chat_friend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/left_chat"
         android:padding="@dimen/dimen_12dp"
         android:paddingStart="32dp"
         android:text="@string/text_chat01"
-        android:layout_marginTop="@dimen/dimen_32dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/left_chat"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_hour_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
         android:inputType="datetime"
         android:text="@string/text_hour"

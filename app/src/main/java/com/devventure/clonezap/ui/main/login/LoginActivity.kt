@@ -1,8 +1,9 @@
-package com.devventure.clonezap
+package com.devventure.clonezap.ui.main.login
 
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.devventure.clonezap.R
 import com.devventure.clonezap.databinding.ActivityLoginBinding
 import com.devventure.clonezap.viewmodel.LoginViewModel
 import com.firebase.ui.auth.AuthUI
