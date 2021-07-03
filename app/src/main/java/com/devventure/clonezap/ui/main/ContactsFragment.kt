@@ -1,5 +1,6 @@
 package com.devventure.clonezap.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.devventure.clonezap.databinding.FragmentMainBinding
+import com.devventure.clonezap.model.Contact
+import com.devventure.clonezap.repository.ChatRepository
+import com.devventure.clonezap.repository.UserRepository
 
 /**
  * A placeholder fragment containing a simple view.
@@ -39,18 +43,27 @@ class ContactsFragment : Fragment() {
         val root = binding.root
 
         val contactsList: RecyclerView = binding.contactsList
-        val adapter: ContactsAdapter = ContactsAdapter()
+        val adapter: ContactsAdapter = ContactsAdapter({ contact ->
+            onContactsSelected(contact)
+        })
         contactsViewModel.contactsList.observe(viewLifecycleOwner, {
             adapter.setContactsList(it)
         })
 
         contactsList.adapter = adapter
 
-//        val textView: TextView = binding.sectionLabel
-//        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
         return root
+    }
+
+    private fun onContactsSelected(contact: Contact){
+        val intent: Intent = Intent(context, ChatActivity::class.java)
+
+        val email = UserRepository.myEmail()
+        val chatId = ChatRepository.createChatId(email!!, contact.email)
+
+        intent.putExtra("chatId", chatId)
+        intent.putExtra("contactEmail", contact.email)
+        startActivity(intent)
     }
 
     companion object {

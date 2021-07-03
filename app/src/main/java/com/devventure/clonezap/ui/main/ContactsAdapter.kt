@@ -10,14 +10,14 @@ import com.devventure.clonezap.R
 import com.devventure.clonezap.model.Contact
 import org.w3c.dom.Text
 
-class ContactsAdapter() : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class ContactsAdapter(val onContactSelected: (contact: Contact) -> Unit) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     var contacts: ArrayList<Contact> = ArrayList<Contact>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val contactName: TextView = view.findViewById(R.id.contactName)
         private val contactDetails: TextView = view.findViewById(R.id.contactDetails)
-        private val contactImage: ImageView = view.findViewById(R.id.contactImage)
+        val send: ImageView = view.findViewById(R.id.send)
 
         fun setUser(contact: Contact){
             contactName.text = contact.name
@@ -39,6 +39,9 @@ class ContactsAdapter() : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setUser(contacts[position])
+        holder.send.setOnClickListener{
+            onContactSelected(contacts[position])
+        }
     }
 
     override fun getItemCount(): Int {

@@ -12,6 +12,10 @@ object UserRepository {
     const val TAG: String = "UserRepository"
     val db by lazy {Firebase.firestore}
 
+    fun myEmail(): String? {
+        return  FirebaseAuth.getInstance().currentUser?.email
+    }
+
     fun addUser(user: User, onSuccess: () -> Unit, onFail: (error: String) -> Unit){
         // Add a new document with a generated ID
         db.collection("users")
