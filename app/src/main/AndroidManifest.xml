@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Clonezap">
         <activity android:name=".ui.main.chat.ChatActivity"></activity>
+        <activity android:name=".AddContact"></activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">

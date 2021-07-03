@@ -7,6 +7,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 object UserRepository {
     private const val TAG: String = "UserRepository"
@@ -40,7 +42,16 @@ object UserRepository {
     }
 
     fun addUserToMyContacts(user: User){
+        val data = hashMapOf(
+            "email" to user.email,
+            "name" to user.email,
+        )
 
+        db.collection("users")
+            .document(this.myEmail().toString())
+            .collection("contacts")
+            .document(user.email)
+            .set(data)
     }
 
     fun getMyContacts(onComplete: (ArrayList<Contact>) -> Unit){
