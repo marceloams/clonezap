@@ -23,13 +23,13 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="337dp"
+        android:layout_height="303dp"
         app:layout_constraintBottom_toTopOf="@+id/privacyPolicy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeMessage"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/pattern_whatsapp" />
 
     <TextView
         android:id="@+id/privacyPolicy"
