@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dimen_16dp"
     tools:context=".ChatActivity">
-
-
 
     <EditText
         android:id="@+id/txtMessages"
@@ -48,21 +45,22 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="@string/text_name_user"
+        app:title=""
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messenger_list"
+        android:id="@+id/messagesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="@dimen/dimen_16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/txtMessages"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:listitem="@layout/item_chat" />
+        tools:listitem="@layout/chat_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

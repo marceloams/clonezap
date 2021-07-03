@@ -54,17 +54,15 @@ class ContactsFragment : Fragment() {
             if (e != null) {
                 Toast.makeText(context, e, Toast.LENGTH_LONG).show()
             } else {
-                goToChat(chatId)
+                goToChat(chatId, contact.name)
             }
         }
     }
 
-    private fun goToChat(chatId: String) {
+    private fun goToChat(chatId: String, contactName: String) {
         val intent: Intent = Intent(context, ChatActivity::class.java)
-        intent.putExtra(
-            "chatId",
-            chatId
-        )
+        intent.putExtra("chatId", chatId)
+        intent.putExtra("contactName", contactName)
         startActivity(intent)
     }
 
